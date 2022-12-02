@@ -84,8 +84,12 @@ class SidecarSubProcess(object):
         else:
             self._starting = True
             from select import poll
-
+            
             python_version = sys.executable
+            if(python_version == ''):
+                python_version= os.environ['DEFAULT_PYTHON_EXECUTABLE']
+
+            #python_version = sys.executable
             cmdline = [
                 python_version,
                 "-u",

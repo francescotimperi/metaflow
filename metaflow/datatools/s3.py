@@ -1331,7 +1331,12 @@ class S3(object):
     def _s3op_with_retries(self, mode, **options):
         from . import s3op
 
-        cmdline = [sys.executable, os.path.abspath(s3op.__file__), mode]
+        python_version = sys.executable
+        if(python_version == ''):
+            python_version= os.environ['DEFAULT_PYTHON_EXECUTABLE']
+            
+        cmdline = [python_version, os.path.abspath(s3op.__file__), mode]
+        #cmdline = [sys.executable, os.path.abspath(s3op.__file__), mode]
         for key, value in options.items():
             key = key.replace("_", "-")
             if isinstance(value, bool):
